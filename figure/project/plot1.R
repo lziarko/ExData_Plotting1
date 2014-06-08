@@ -1,0 +1,8 @@
+fileUrl<-("https://d396qusza40orc.cloudfront.net/exdata%2Fdata%2Fhousehold_power_consumption.zip")
+download.file(fileUrl,destfile="./data_all.txt")
+data_all<-read.table("./data_all.txt", header=T, sep=";", na.strings="?", quote="\"")
+data<-subset(data_all, data_all$Date=="1/2/2007" | data_all$Date=="2/2/2007")
+data$DateTime<-strptime(paste(data$Date,data$Time),"%d/%m/%Y %H:%M:%S")
+png(file="plot1.png",width = 480, height = 480, units = "px")
+hist(data$Global_active_power,col="red",main="Global Active Power",xlab="Global Active Power (killowats)")
+dev.off()
